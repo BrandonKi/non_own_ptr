@@ -1,6 +1,8 @@
 #ifndef NON_OWN_PTR_H
 #define NON_OWN_PTR_H
 
+#include <memory>
+
 template<typename T>
 class non_own_ptr final {
 	public:
