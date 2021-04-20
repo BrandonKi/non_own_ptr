@@ -1,57 +1,55 @@
-#ifndef NON_OWN_PTR_H
-#define NON_OWN_PTR_H
-
-#include <memory>
+#ifndef VIEW_PTR_H
+#define VIEW_PTR_H
 
 template<typename T>
-class non_own_ptr final {
+class view_ptr final {
 	public:
 
-		constexpr inline non_own_ptr() noexcept :
+		constexpr inline view_ptr() noexcept :
 			ptr_(nullptr)
 		{
 			
 		}
 
-		constexpr inline explicit non_own_ptr(std::nullptr_t) noexcept :
+		constexpr inline explicit view_ptr(std::nullptr_t) noexcept :
 			ptr_(nullptr)
 		{
 
 		}
 	
-		constexpr inline explicit non_own_ptr(T* ptr) noexcept :
+		constexpr inline explicit view_ptr(T* ptr) noexcept :
 			ptr_(ptr)
 		{
 			
 		}
 
-		inline ~non_own_ptr() noexcept {
+		inline ~view_ptr() noexcept {
 			release();
 		}
 
-		constexpr non_own_ptr(const non_own_ptr& other) noexcept :
+		constexpr view_ptr(const view_ptr& other) noexcept :
 			ptr_(other.get())
 		{
 			
 		}
 
-		constexpr inline non_own_ptr& operator =(const non_own_ptr& other) noexcept {
+		constexpr inline view_ptr& operator =(const view_ptr& other) noexcept {
 			ptr_ = other.get();
 			return *this;
 		}
 
-		constexpr inline non_own_ptr& operator =(std::nullptr_t) noexcept {
+		constexpr inline view_ptr& operator =(std::nullptr_t) noexcept {
 			ptr_ = nullptr;
 			return *this;
 		}
 
-		constexpr non_own_ptr(non_own_ptr&& other) noexcept :
+		constexpr view_ptr(view_ptr&& other) noexcept :
 			ptr_(other)
 		{
 			
 		}
 
-		constexpr inline non_own_ptr& operator =(non_own_ptr&& other) noexcept {
+		constexpr inline view_ptr& operator =(view_ptr&& other) noexcept {
 			ptr_ = other.get();
 			return *this;
 		}
@@ -80,8 +78,8 @@ class non_own_ptr final {
 			return ptr_;
 		}
 
-		constexpr inline void release() const noexcept {
-			delete ptr_;
+		constexpr inline void release() noexcept {
+			ptr_ = nullptr;
 		}
 
 	private:
